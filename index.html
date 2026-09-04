@@ -736,7 +736,7 @@ let MAP_VB_W, MAP_VB_H, MAP_ROWS;
   }
   MAP_ROWS = row + 1;
   MAP_VB_W = MAP_PAD_X*2 + MAX_ROW_WIDTH;
-  MAP_VB_H = MAP_PAD_Y + MAP_TOP_EXTRA + (MAP_ROWS-1)*MAP_CELL_H + MAP_CELL_H/2 + MAP_PAD_Y + 460; // ゴールパネルを下にずらした分の余白
+  MAP_VB_H = MAP_PAD_Y + MAP_TOP_EXTRA + (MAP_ROWS-1)*MAP_CELL_H + MAP_CELL_H/2 + MAP_PAD_Y + 560; // ゴールパネルを下にずらした分の余白
 })();
 
 function seededRand(seed){ const x = Math.sin(seed*999.7)*10000; return x - Math.floor(x); }
@@ -926,7 +926,7 @@ function buildMapStaticSVG(){
 
   // 中心のゴールパネル（日光東照宮のイメージ）。鉢石宿の真下にずらして、宿場パネルと重ならないようにする
   const goalNode = MAP_NODES[MAP_NODES.length-1];
-  const gx = goalNode.x, gy = goalNode.y + 260;
+  const gx = goalNode.x, gy = goalNode.y + 340;
   const GW = 360, GH = 360;
   const goalPanel = `
     <g class="map-node" onclick="showStationInfoModal(${MAP_NODES.length-1})" style="cursor:pointer;">
