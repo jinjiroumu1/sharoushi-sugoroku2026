@@ -166,7 +166,7 @@
 
   .modal-backdrop{position:fixed; inset:0; background:rgba(16,20,30,0.55); backdrop-filter:blur(2px); display:flex; align-items:center; justify-content:center; z-index:50; padding:20px; opacity:1; transition: opacity 0.28s ease;}
   .modal-backdrop.fade-out{opacity:0;}
-  .modal-card{background:#fffaf0; border-radius:16px; max-width:420px; width:100%; padding:28px 24px 24px; position:relative; text-align:center; box-shadow:0 24px 60px -20px rgba(0,0,0,0.5);}
+  .modal-card{background:#fffaf0; border-radius:16px; max-width:420px; width:100%; padding:28px 24px 24px; position:relative; text-align:center; box-shadow:0 24px 60px -20px rgba(0,0,0,0.5); max-height:88vh; overflow-y:auto;}
   .modal-close-x{position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:50%; border:none; background:rgba(0,0,0,0.06); color:#8a7c5c; font-size:1.1rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;}
   .modal-close-x:hover{background:rgba(0,0,0,0.12); color:#4a4433;}
   .stamp{width:88px; height:88px; border-radius:50%; border:5px solid var(--vermillion); color:var(--vermillion); display:flex; align-items:center; justify-content:center; font-family:'Shippori Mincho', serif; font-weight:800; font-size:0.9rem; margin:0 auto 14px; transform:rotate(-8deg) scale(0); animation:stampIn 0.45s cubic-bezier(.2,1.4,.4,1) forwards; animation-delay:0.15s;}
@@ -192,7 +192,7 @@
   .modal-card p.note{font-size:0.68rem; color:#a99a72; margin:0 0 18px;}
 
   /* 先輩社労士メッセージ（顔写真つき）専用レイアウト */
-  .modal-card.msg-card{max-width:480px;}
+  .modal-card.msg-card{max-width:600px;}
   .msg-header{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:16px;}
   .msg-header-icon{font-size:2rem; line-height:1;}
   .msg-header-name{font-family:'Shippori Mincho', serif; font-weight:800; font-size:1.15rem; color:var(--indigo-900);}
@@ -293,7 +293,7 @@
 </style>
 </head>
 <body>
-<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090407</div>
+<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090409</div>
 <div id="app"></div>
 <script>
 /* ============ 基本設定 ============ */
@@ -352,7 +352,7 @@ const STATION_IMAGES = {
   "shirakawa": "data:image/jpeg;base64,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",
 };
 // 宿場の手前に置くマス数（毎日1回・約3か月でゴールするペースを想定して調整）
-const GAP_FILLERS = [14,14,14,14,14,10,14,4,10,12,10,12,8,10,10,14,14,14,14,14,14]; // 距離比例、多い区間は14マスを上限に抑制
+const GAP_FILLERS = [14,14,14,14,14,10,14,4,10,12,10,12,8,10,10,14,14,14,14,14,9,5]; // 距離比例、多い区間は14マスを上限に抑制（最後の5は鉢石宿→日光東照宮）
 
 // 寄り道マス（本筋から分岐する場所。あとで自由に追加できます）
 const SIDEQUEST_DEFS = [
@@ -644,8 +644,16 @@ let BRANCH_POINTS = {}; // pos -> 寄り道の分岐情報
       WAYPOINTS.push({pos:idx, type:'plain', gapIndex:s, offset:f});
     }
     idx++;
-    WAYPOINTS.push({pos:idx, type:'station', name:STATION_INFO[s].name, icon:STATION_INFO[s].icon, trivia:STATION_INFO[s].trivia, isGoal:(s===STATION_INFO.length-1), stationOrder:s});
+    WAYPOINTS.push({pos:idx, type:'station', name:STATION_INFO[s].name, icon:STATION_INFO[s].icon, trivia:STATION_INFO[s].trivia, isGoal:false, stationOrder:s});
   }
+  // 鉢石宿から、さらに数マス進んで日光東照宮（正式なゴール）へ
+  const goalGapIndex = STATION_INFO.length;
+  for(let f=0; f<GAP_FILLERS[goalGapIndex]; f++){
+    idx++;
+    WAYPOINTS.push({pos:idx, type:'plain', gapIndex:goalGapIndex, offset:f});
+  }
+  idx++;
+  WAYPOINTS.push({pos:idx, type:'station', name:'日光東照宮', icon:'⛩️', trivia:'', isGoal:true, stationOrder:null});
   SIDEQUEST_DEFS.forEach(sq=>{
     const target = WAYPOINTS.find(w=>w.type==='plain' && w.gapIndex===sq.afterGapIndex && w.offset===sq.offsetInGap);
     if(target){
@@ -736,7 +744,7 @@ let MAP_VB_W, MAP_VB_H, MAP_ROWS;
   }
   MAP_ROWS = row + 1;
   MAP_VB_W = MAP_PAD_X*2 + MAX_ROW_WIDTH;
-  MAP_VB_H = MAP_PAD_Y + MAP_TOP_EXTRA + (MAP_ROWS-1)*MAP_CELL_H + MAP_CELL_H/2 + MAP_PAD_Y + 560; // ゴールパネルを下にずらした分の余白
+  MAP_VB_H = MAP_PAD_Y + MAP_TOP_EXTRA + (MAP_ROWS-1)*MAP_CELL_H + MAP_CELL_H/2 + MAP_PAD_Y;
 })();
 
 function seededRand(seed){ const x = Math.sin(seed*999.7)*10000; return x - Math.floor(x); }
@@ -863,6 +871,7 @@ function buildMapStaticSVG(){
   let banners = '';
   let stationIdx = 0;
   MAP_NODES.forEach((n,i)=>{
+    if(n.isGoal) return; // 日光東照宮は中心パネルとして別途描画
     const isStart = n.type==='start';
     const imgKey = isStart ? 'start' : `s${stationIdx}`;
     if(!isStart) stationIdx++;
@@ -925,7 +934,7 @@ function buildMapStaticSVG(){
 
   // 中心のゴールパネル（日光東照宮のイメージ）。鉢石宿の真下にずらして、宿場パネルと重ならないようにする
   const goalNode = MAP_NODES[MAP_NODES.length-1];
-  const gx = goalNode.x, gy = goalNode.y + 340;
+  const gx = goalNode.x, gy = goalNode.y;
   const GW = 360, GH = 360;
   const goalPanel = `
     <g class="map-node" onclick="showGoalInfoModal()" style="cursor:pointer;">
