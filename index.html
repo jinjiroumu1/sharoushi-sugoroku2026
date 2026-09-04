@@ -293,7 +293,7 @@
 </style>
 </head>
 <body>
-<div id="buildVersionBadge" style="display:none; position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090406</div>
+<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090407</div>
 <div id="app"></div>
 <script>
 /* ============ 基本設定 ============ */
@@ -863,7 +863,6 @@ function buildMapStaticSVG(){
   let banners = '';
   let stationIdx = 0;
   MAP_NODES.forEach((n,i)=>{
-    if(n.isGoal) return; // ゴールは中心パネルとして別途描画
     const isStart = n.type==='start';
     const imgKey = isStart ? 'start' : `s${stationIdx}`;
     if(!isStart) stationIdx++;
@@ -929,7 +928,7 @@ function buildMapStaticSVG(){
   const gx = goalNode.x, gy = goalNode.y + 340;
   const GW = 360, GH = 360;
   const goalPanel = `
-    <g class="map-node" onclick="showStationInfoModal(${MAP_NODES.length-1})" style="cursor:pointer;">
+    <g class="map-node" onclick="showGoalInfoModal()" style="cursor:pointer;">
       <rect x="${(gx-GW/2-24).toFixed(1)}" y="${(gy-GH/2-24).toFixed(1)}" width="${GW+48}" height="${GH+48}" rx="40" fill="#fff8ee" opacity="0.75"/>
       <defs><clipPath id="clip_goal"><rect x="${(gx-GW/2).toFixed(1)}" y="${(gy-GH/2).toFixed(1)}" width="${GW}" height="${GH}" rx="28"/></clipPath></defs>
       <image href="${STATION_IMAGES.goal}" x="${(gx-GW/2).toFixed(1)}" y="${(gy-GH/2).toFixed(1)}" width="${GW}" height="${GH}" clip-path="url(#clip_goal)" preserveAspectRatio="xMidYMid slice"/>
@@ -1028,6 +1027,29 @@ function showStationInfoModal(i){
         <div class="stamp" style="border-color:${n.isGoal?'var(--vermillion)':n.type==='sidequest'?'var(--gold)':'var(--indigo-700)'}; color:${n.isGoal?'var(--vermillion)':n.type==='sidequest'?'#8a6a1a':'var(--indigo-700)'};">${n.icon}</div>
         <h3>${escapeHtml(n.name)}</h3>
         <p class="quote">${escapeHtml(n.trivia || '')}</p>
+        <button class="btn btn-main" id="closeStationModalBtn">閉じる</button>
+      </div>
+    `;
+  }
+  document.body.appendChild(div);
+  div.querySelector('#closeStationModalBtn').onclick = ()=> div.remove();
+}
+function showGoalInfoModal(){
+  const hasReached = !!(PLAYER && PLAYER.arrivedAt);
+  const div = document.createElement('div');
+  div.className = 'modal-backdrop';
+  if(hasReached || TEST_STATION_MESSAGE_PREVIEW){
+    div.innerHTML = `
+      <div class="modal-card msg-card">
+        ${buildStationMessageInnerHTML('日光東照宮', '⛩️', GOAL_MESSAGE, (TEST_STATION_MESSAGE_PREVIEW && !hasReached) ? '<p class="note">※確認用表示です（本番では到着時のみ表示されます）。</p>' : '')}
+      </div>
+    `;
+  } else {
+    div.innerHTML = `
+      <div class="modal-card">
+        <div class="stamp" style="border-color:var(--vermillion); color:var(--vermillion);">⛩️</div>
+        <h3>日光東照宮</h3>
+        <p class="quote">すごろくのゴール地点です。たどり着くと、お祝いのメッセージが届きます。</p>
         <button class="btn btn-main" id="closeStationModalBtn">閉じる</button>
       </div>
     `;
