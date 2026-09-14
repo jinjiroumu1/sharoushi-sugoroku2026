@@ -294,7 +294,7 @@
 </style>
 </head>
 <body>
-<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090410</div>
+<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090411</div>
 <div id="app"></div>
 <script>
 /* ============ 基本設定 ============ */
@@ -1277,7 +1277,7 @@ function jsonpCall(params){
     };
     const timer = setTimeout(()=>{
       if(!done){ done=true; cleanup(); resolve({ok:false, error:'timeout'}); }
-    }, 15000);
+    }, 25000);
     window[cbName] = function(data){
       if(done) return;
       done = true; clearTimeout(timer); cleanup();
