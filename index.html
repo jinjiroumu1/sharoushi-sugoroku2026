@@ -294,7 +294,7 @@
 </style>
 </head>
 <body>
-<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090411</div>
+<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v090412</div>
 <div id="app"></div>
 <script>
 /* ============ 基本設定 ============ */
@@ -2047,7 +2047,10 @@ function showCheerComposeModal(postTs, postNick){
     const r = await apiSendCheer(postTs, postNick, message);
     if(r && r.ok){
       div.remove();
-      await refreshAll(); // 掲示板・応援など全体を取り直す
+      // サーバー側の反映を待たず、まず手元の一覧にも即座に追加しておく（反映タイムラグ対策）
+      ALL_CHEERS.push({timestamp: new Date().toISOString(), postTimestamp: postTs, postNickname: postNick, cheerer: ME, message});
+      renderGame();
+      await refreshAll(); // 掲示板・応援など全体を取り直す（裏で最新化）
       renderGame();
     } else {
       btn.disabled = false;
@@ -2125,6 +2128,7 @@ function showEpisodeModal(kind, idx){
     const btn = document.getElementById('episodeSubmitBtn');
     btn.disabled = true; btn.textContent = '投稿中…';
     await apiPostBoard(kind, text);
+    BOARD_POSTS.unshift({timestamp: new Date().toISOString(), nickname: ME, type: kind, text}); // 反映タイムラグ対策で即座に追加
     await refreshBoard();
     div.remove();
     openDiceModal(opt.amount, 'bonus_'+kind, opt.label);
