@@ -303,7 +303,7 @@
 </style>
 </head>
 <body>
-<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v091615</div>
+<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v091616</div>
 <div id="app"></div>
 <script>
 /* ============ 基本設定 ============ */
@@ -640,7 +640,7 @@ const DUMMY_QUOTES = [
   '「ゴールが見えてきても、最後まで丁寧に。」',
   '「日光に着いたら、また新しい旅が始まる。」',
 ];
-// ↑本文はすべて仮の文言です。後日、実際の先輩社労士のメッセージに差し替え予定。
+// ↑各宿場の先輩社労士メッセージ（21宿場すべて反映済み）
 
 /* ============ 盤面の自動生成 ============ */
 let WAYPOINTS = []; // index 1..GOAL_POS
@@ -2075,11 +2075,6 @@ function renderGame(){
         ${PLAYER.history.slice().reverse().filter(h=>!['bonus_client_used','bonus_hokkori_used','cheer_bonus_used'].includes(h.kind)).slice(0,40).map(h=>`<div>${h.date} — ${escapeHtml(h.text)}</div>`).join('') || '<div>まだ記録がありません。</div>'}
       </div>
     </section>
-
-    <div class="footer-note">
-      ※ 宿場・寄り道到着メッセージは仮の文言です。後日、実際の先輩社労士のメッセージ等に差し替え予定です。<br>
-      ※ 参加者の記録・掲示板の投稿はニックネーム単位で全員から見える共有データとして保存されます（合言葉は簡易ハッシュ保存）。
-    </div>
   </div>
   `;
 
@@ -2625,7 +2620,7 @@ function showArrivalModal(w, onClose){
         ${illustrationHTML}
         <h3>${title}</h3>
         ${quote ? `<p class="quote">${quote}</p>` : ''}
-        ${(()=>{ const n = isBranchStarted ? '※明日以降、サイコロを振ると寄り道の続きを進みます。' : isBranch ? '※明日以降、サイコロを振ると分岐点への帰り道を進みます。' : isSpecial ? '' : '※このメッセージは仮の文言です。後日差し替え予定です。'; return n ? `<p class="note">${n}</p>` : ''; })()}
+        ${(()=>{ const n = isBranchStarted ? '※明日以降、サイコロを振ると寄り道の続きを進みます。' : isBranch ? '※明日以降、サイコロを振ると分岐点への帰り道を進みます。' : ''; return n ? `<p class="note">${n}</p>` : ''; })()}
         <button class="btn btn-main" id="closeModalBtn">閉じる</button>
       </div>
     `;
