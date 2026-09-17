@@ -303,7 +303,7 @@
 </style>
 </head>
 <body>
-<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v091623</div>
+<div id="buildVersionBadge" style="position:fixed; top:6px; right:8px; z-index:9999; background:rgba(40,69,122,0.85); color:#fff8ee; font-size:0.65rem; padding:3px 8px; border-radius:999px; font-family:monospace; letter-spacing:0.05em;">v091624</div>
 <div id="app"></div>
 <script>
 /* ============ 基本設定 ============ */
@@ -2326,7 +2326,7 @@ function openDiceModal(count, kind, reasonLabel){
     const startXY = playerXY(startPos), endXY = getMyTokenXY();
     scrollPageToMapPoint((startXY.y+endXY.y)/2); // 移動区間が画面に映るよう、ページごとスクロール
     const savePromise = apiSave(PLAYER);
-    await new Promise(res=>setTimeout(res, 30)); // スクロールが落ち着くまで少し待つ
+    await new Promise(res=>setTimeout(res, 650)); // スクロールが落ち着くまで待つ（この間にコマが動くと見えづらいため）
     await animateMyTokenTo(startPos, PLAYER.position);
     await savePromise;
 
